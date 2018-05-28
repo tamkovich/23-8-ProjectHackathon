@@ -1,0 +1,62 @@
+		{% extends "header.html" %}
+
+		{% block head %}
+		<link rel="icon" href="favicon.ico">
+
+		<title>{{categories.title}}</title>
+		{% endblock %}
+		
+    {% block intop %}
+    <div style="background: #020001; height: 150px; margin-bottom: 20px;"></div>
+    {% endblock %}
+
+		{% block body %}
+		<div class="container">
+	    <div class="row">
+	      <div class="container">
+	        <ol class="breadcrumb">
+	          <li><a href="/"><i class="fa fa-home"> Главная</i></a></li>
+	          <li><a href="/kategor/">Наши категории</a></li>
+	          <li class="active">{{ cat.title }}</li>
+	        </ol>
+	      </div>
+	    </div>
+	  </div>
+
+			<div class="col-sn-6 col-sm-offset-3">
+        <a href="/kategor/{{cat.slug}}">
+            <h3>{{cat.title}}</h3>
+        </a>
+					<div class="row">
+						{% for prod in prods %}
+							{% if prod.categorie_id == cat.id %}
+						    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+						      <div class="thumbnail">
+						        <img src="{{ MEDIA_URL }}{{ prod.image.url }}">
+						        <div class="caption">
+						          <h3><a href="/kategor/{{cat.slug}}/{{prod.slug}}" class="text-center">{{ prod.title|truncatechars:18 }}</a></h3>
+						          <p>{{ prod.post|truncatechars:20 }}</p>
+						          <a href="/kategor/{{cat.slug}}/{{prod.slug}}" class="btn btn-success center-block">Подробнее <i class="fa fa-arrow-right"></i></a>
+						        </div>
+						      </div>
+						    </div> 		        		
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="pagination">
+					    <span class="step-links">
+					        {% if prods.has_previous %}
+					            <a href="?{{ page_request_var }}={{ prods.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+					        {% endif %}
+
+					        <span class="current">
+					            Page {{ prods.number }} of {{ prods.paginator.num_pages }}.
+					        </span>
+
+					        {% if prods.has_next %}
+					            <a href="?{{ page_request_var }}={{ prods.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last &raquo;</a>
+					        {% endif %}
+					    </span>
+						</div>
+			</div>
+		{% endblock %}

@@ -1,0 +1,20 @@
+    {% extends 'header.html' %}
+
+    {% block head %}
+    <link rel="icon" href="favicon.ico">
+    
+    <title>Регистрация</title>
+    {% endblock %}
+    {% block intop %}
+    <div style="background: #020001; height: 150px; margin-bottom: 20px;"></div>
+    {% endblock %}
+    {% block body %}
+    <div class="container">
+        <h1>Регистрация</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% endblock %}

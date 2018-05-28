@@ -1,0 +1,153 @@
+		{% extends "header.html" %}
+		{% load crispy_forms_tags %}
+
+		<head>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		</head>
+
+		{% block head %}
+		<link rel="icon" href="favicon.ico">
+
+		<title>{{prod.title}}</title>
+		{% endblock %}
+
+		{% block intop %}
+    <div style="background: #020001; height: 150px; margin-bottom: 20px;"></div>
+    {% endblock %}
+
+    {% block body %}
+	  <div class="container">
+	    <div class="row">
+	      <div class="container">
+	        <ol class="breadcrumb">
+	          <li><a href="/"><i class="fa fa-home"> Главная</i></a></li>
+	          <li><a href="/kategor/">Наши категории</a></li>
+	          <li><a href="/kategor/{{ cat_slug }}">{{ cat_title }}</a></li>
+	          <li class="active">{{ prod.title }}</li>
+	        </ol>
+	      </div>
+	    </div>
+	  </div>
+		<!-- example -->
+		<div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette">{{ prod.title }} 
+          	<br>
+          	<small><span class="text-muted">Опубликовано: {{ prod.date }}</span></small>
+          </h2>
+          <div class="container">
+	    	<div class="row">
+		      <div class="col-md-6">
+		        <br>
+		        <div class="tabs">
+		          <ul class="nav nav-tabs">
+		            <li class="active"><a href="#tab-1" data-toggle="tab">Описание продукта</a></li>
+		            <li><a href="#tab-2" data-toggle="tab">Отзывы</a></li>
+		          </ul>
+		          <div class="tab-content">
+		            <div class="tab-pane fade in active" id="tab-1">
+		            	<br>
+		              <p style="font-size: 16px;">{{ prod.post }}</p>
+		            </div>
+		            <div class="tab-pane fade container" id="tab-2">
+		            	<p class="lead">Комментарии</p>
+
+									{% if user.is_authenticated %}
+									<!-- форма для записи комментариев -->
+		            	<form method="POST" action="">
+		            		{% csrf_token %}
+		            		{{ comment_form|crispy }}
+		            		<input type="submit" value="Отправить комментарий" class="btn btn-default">
+		            	</form>
+									<!-- её конец -->
+									{% else %}
+										<p>Войдите или зарегистрируйтесь, чтобы оставить комментарий</p>
+										<small><a href="/account/login/" class='btn btn-success btn-lg'>Войти</a></small>	<br> <br>
+										<small><a href="/account/register/" class='btn btn-success btn-lg'>Зарегистрироваться</a></small>
+									{% endif %}
+
+
+		            	<hr>
+		            	{% for comment in comments %}
+		            	<blockquote>
+									  <p>{{ comment.content }}</p>
+									  <footer>via {{ comment.user }} | {{ comment.timestamp|timesince }} ago</footer>
+									</blockquote>
+
+									<hr>
+		            	{% endfor %}
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>  
+
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" src="{{ MEDIA_URL }}{{ prod.image.url }}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+		<!-- ENDexample -->
+		      <hr class="featurette-divider">
+
+		  <div class="container text-center">
+		    <div class="row">
+		      <div class="col-xs-4">
+
+		        <div class="thumbnail thumbnail-lg">
+		          <img src="{{ MEDIA_URL }}{{ prod.image.url }}">
+		          <div class="caption">
+								<h2>{{ prod.title }}</h2>
+		          </div>
+		        </div>
+						
+		        <div class="row">
+			        <div class="container col-xs-12">
+			          <a href="#" class="btn btn-lg btn-success outline btn-block" target="_blank">Заказать</a>
+			          <hr>
+			          <a href="#spoiler-1" data-toggle="collapse" class="btn btn-success btn-lg btn-block">Способы оплаты</a>
+			          <div class="collapse" id="spoiler-1">
+			          <div class="well">
+			            <p>Оплатить покупку вы можете...</p>
+			          </div>
+			        </div>
+			        </div>
+		      	</div>
+		    	</div>
+		   	</div>
+		  </div>
+
+	    <div class="container">
+	    	<div class="row">
+		      <div class="col-md-6">
+		        <br>
+		        <div class="tabs">
+		          <ul class="nav nav-tabs">
+		            <li class="active"><a href="#tab-1" data-toggle="tab">Описание продукта</a></li>
+		            <li><a href="#tab-2" data-toggle="tab">Отзывы</a></li>
+		          </ul>
+		          <div class="tab-content">
+		            <div class="tab-pane fade in active" id="tab-1">
+		              <p style="font-size: 16px;">{{ prod.post }}</p>
+		            </div>
+		            <div class="tab-pane fade container" id="tab-2">
+		            	<p class="lead">Комментарии</p>
+		            	{% for comment in comments %}
+
+		            	<blockquote>
+									  <p>{{ comment.content }}</p>
+									  <footer>via {{ comment.user }} | {{ comment.timestamp|timesince }} ago</footer>
+									</blockquote>
+
+									<hr>
+		            	{% endfor %}
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>  
+
+    {% endblock %}

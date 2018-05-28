@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>23/8</title>
+<!--
+Classic Template
+http://www.templatemo.com/tm-488-classic
+-->
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'foder/css/bootstrap.min.css' %}">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="{% static 'foder/css/templatemo-style.css' %}">                                   <!-- Templatemo style -->
+    <link rel="stylesheet" href="{% static 'twogroup/css/style.css' %}">
+    <link href="{% static 'twogroup/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'twogroup/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'twogroup/assets/js/ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+</head>
+
+    <body>
+
+       
+        <div class="tm-header">
+            <div class="container-fluid">
+                <div class="tm-header-inner">
+                    
+                    
+                    <!-- navbar -->
+                    <!-- <nav class="navbar tm-main-nav navbar-static-top"> -->
+                    
+
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                            
+                        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                            &#9776;
+                        </button>
+                        
+                        <div class="collapse navbar-collapse" id="tmNavbar">
+                          <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#" class="navbar-brand">23/8</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item active">
+                                    <a href="/" class="nav-link">Домашняя</a>
+                                </li>
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-large"></span> Аккаунт </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/account/profile/"><span class="glyphicon glyphicon-user"></span> Профиль</a>
+                                </li>
+                                <li>
+                                    <a href="/account/profile/edit/"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                                </li>
+                                <li>
+                                    <a href="/account/change-password/"><span class="glyphicon glyphicon-wrench"></span> Изменить пароль</a>
+                                </li>
+                                <li>
+                                    <a href="/account/reset-password/"><span class="glyphicon glyphicon-refresh"></span> Восстановить пароль</a>
+                                </li>
+                                <li>
+                                    <a href="/account/logout/"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+                                </li>
+                            </ul>
+                          </li>
+                          {% else %}
+                                <li class="nav-item">
+                                    <a href="/account/login/" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Войти</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/account/register/" class="nav-link"><span class="glyphicon glyphicon-registration-mark"></span> Зарегистрироваться</a>
+                                </li>
+                          {% endif %}
+                            
+                                
+                                {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a href="/podarok/create/" class="nav-link">Заполнить форму</a>
+                                </li>
+                                {% endif %}
+                            <!--    <li class="nav-item">
+                                    <a href="blog.html" class="nav-link">хз</a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a href="contact.html" class="nav-link">Контакты</a>
+                                </li>
+                          </ul>                        
+                        </div>
+                        
+                    </nav>  
+
+                </div>                                  
+            </div>            
+        </div>
+
+        <div class="tm-home-img-container">
+            <img src="img/tm-home-img.jpg" alt="Image" class="hidden-lg-up img-fluid" text-aling='center'>
+        </div>
+
+        <section class="tm-section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-xs-center">
+                        <h2 class="tm-gold-text tm-title">Введение</h2>
+                        <p class="tm-subtitle" style="font-size: 20px;">К сожалению, люди не умеют читать мысли друг друга и поэтому не всегда могут точно определить хороший подарок для знакомых. Наш сервис создан для того, чтобы облегчить участь неудавшихся подарков.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for obj in object_list %}
+                    {% if obj.image %}
+                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+                        <div class="tm-content-box">
+                            <div class="thumbnail">
+                                <img src="{{ obj.image.url }}" alt="Image" class="tm-margin-b-20 img-fluid">
+                                <div class="caption">
+                                    <h3><a href="/podarok/{{obj.slug}}/" class="text-center">{{ obj.title|truncatechars:18 }}</a></h3>
+                                    <h4 class="tm-margin-b-20 tm-gold-text">{{ obj.user.get_full_name }}</h4>
+                                    <p class="tm-margin-b-20">{{ obj.content }}.</p>  
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-5"></div>
+                        <div class="col-xs-4"><a href="/podarok/" class="nav-link"><button type="submit" class="tm-btn btn-lg">Все посмотреть</button></a></div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                </div>
+                
+                
+
+            </div>
+        </section>
+        <footer class="tm-footer">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- Add the extra clearfix for only the required viewport 
+                        http://stackoverflow.com/questions/24590222/bootstrap-3-grid-with-different-height-in-each-item-is-it-solvable-using-only
+                    -->
+                    <div class="clearfix hidden-lg-up"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 tm-copyright-col">
+                        <p class="tm-copyright-text">Copyright 2018 23/8</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- load JS files -->
+        <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
+        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
+
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="twogroup/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'twogroup/dist/js/bootstrap.min.js' %}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{% static 'twogroup/assets/js/vendor/holder.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'twogroup/assets/js/ie10-viewport-bug-workaround.js' %}"></script> 
+       
+</body>
+</html>

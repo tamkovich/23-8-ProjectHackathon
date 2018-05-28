@@ -1,0 +1,332 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>24/8</title>
+<!--
+Classic Template
+http://www.templatemo.com/tm-488-classic
+-->
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'foder/css/bootstrap.min.css' %}">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="{% static 'foder/css/templatemo-style.css' %}">                                   <!-- Templatemo style -->
+    <link href="{% static 'twogroup/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'twogroup/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'twogroup/assets/js/ie-emulation-modes-warning.js' %}"></script>                                 <!-- Templatemo style -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+</head>
+
+    <body>
+       
+        <div class="tm-header">
+            <div class="container-fluid">
+                <div class="tm-header-inner">
+                    <a href="#" class="navbar-brand tm-site-name">24/8</a>
+                    
+                    <!-- navbar -->
+                    <!-- <nav class="navbar tm-main-nav navbar-static-top"> -->
+                    
+
+                    <nav class="navbar navbar-expand-lg navbar-light">
+
+                        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                            &#9776;
+                        </button>
+                        <div class="collapse navbar-collapse" id="tmNavbar">
+                          <ul class="nav navbar-nav">
+                            {% if user.is_authenticated %}
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-large"></span> Аккаунт </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/account/profile/"><span class="glyphicon glyphicon-user"></span> Профиль</a>
+                                </li>
+                                <li>
+                                    <a href="/account/profile/edit/"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                                </li>
+                                <li>
+                                    <a href="/account/change-password/"><span class="glyphicon glyphicon-wrench"></span> Изменить пароль</a>
+                                </li>
+                                <li>
+                                    <a href="/account/reset-password/"><span class="glyphicon glyphicon-refresh"></span> Восстановить пароль</a>
+                                </li>
+                                <li>
+                                    <a href="/account/logout/"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+                                </li>
+                            </ul>
+                          </li>
+                          {% else %}
+                                <li class="nav-item">
+                                    <a href="/account/login/" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Войти</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/account/register/" class="nav-link"><span class="glyphicon glyphicon-registration-mark"></span> Зарегистрироваться</a>
+                                </li>
+                          {% endif %}
+                            
+                                <li class="nav-item">
+                                    <a href="/" class="nav-link">Домашняя</a>
+                                </li>
+                                {% if user.is_authenticated %}
+                                <li class="nav-item active">
+                                    <a href="/podarok/create/" class="nav-link">Заполнить форму</a>
+                                </li>
+                                {% endif %}
+                            <!--    <li class="nav-item">
+                                    <a href="blog.html" class="nav-link">хз</a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a href="contact.html" class="nav-link">Контакты</a>
+                                </li>
+                          </ul>                        
+                        </div>
+                        
+                    </nav>  
+
+                </div>                                  
+            </div>            
+        </div>
+
+        <div class="tm-contact-img-container">
+            
+        </div>
+
+        <section class="tm-section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-6">
+
+                        <section>
+                            <h3 class="tm-gold-text tm-form-title">Добавить:</h3>
+                            <br>
+                        
+                            <!-- {% if user.is_authenticated %}
+                            <form method='POST' action='''>                                
+                                {% csrf_token %}
+                                {{ form|crispy}}
+                                <br>   
+                                <input type="submit" value="Отправить" class="btn tm-btn">                          
+                            </form>
+
+                            {% else %}
+
+                            <p>Войдите или зарегистрируйтесь, чтобы оставить комментарий</p>
+                            <small><a href="/account/login/" class='btn btn-success btn-lg'>Войти</a></small> <br> <br>
+                            <small><a href="/account/register/" class='btn btn-success btn-lg'>Зарегистрироваться</a></small>
+                            {% endif %}    -->
+                            <form action="index.html" method="post" class="tm-contact-form">                                
+                                <div class="form-group">
+                                    <input type="text" id="contact_subject" name="contact_subject" class="form-control" placeholder="Название"  required/>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Описание" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <div id="div_id_image" class="control-group"> <label for="id_image" class="control-label ">
+                                        <button type="submit" class="tm-btn">Изображение подарка</button>
+
+                                    </label>
+                                    <h6>*Файл пока не выбран</h6> <div class="controls"> </div> </div>
+                                </div>
+                            
+                                <button type="submit" class="tm-btn">Отправить</button>                          
+                            </form>   
+                        </section>
+                        
+                        <section class="tm-margin-t-mid tm-map-section">
+
+                            <div id="google-map"></div>
+
+                            <p class="tm-form-description">Morbi vel pharetra massa, non iaculis tortor. Nulla porttitor tincidunt felis et feugiat. Vivamus fermentum ligula justo, sit amet blandit nisl volutpat id.</p>
+
+                            <p class="m-b-0">Donec mattis ipsum in erat viverra commodo. 
+                                Proin sapien lacus, euismod eget nisl in, 
+                                elementum posuere massa. Curabitur a odio
+                                eros. Cras aliquam lectus erat, non semper est
+                                volutpat eget. Ut eget erat tincidunt.</p>
+
+                            <a href="#" class="tm-btn tm-margin-t-small">Detail</a> 
+                        </section>                        
+                 
+
+                    </div>
+                    <div class="col-xs-1"></div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-contact-right">
+                        
+                        <div class="row">
+                            
+
+                            
+                        </div>
+                        <hr class="tm-margin-t-mid">
+                        <div class="row tm-contact-row-related-posts">
+                            <div class="col-xs-12">
+                                
+                                                               
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+        <footer class="tm-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        
+                        <div class="tm-footer-content-box">
+                            <h3 class="tm-gold-text tm-title tm-footer-content-box-title">Proin eu posuere felis</h3>
+                            <div class="tm-gray-bg">
+                                <p>You can download, modify and use Classic HTML CSS template from templatemo.com website.</p>
+                                <p>Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p>
+                                <p><strong>Danny Egg (Executive)</strong></p>    
+                            </div>    
+                        </div>
+                                                
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <div class="tm-footer-content-box tm-footer-links-container">
+                        
+                            <h3 class="tm-gold-text tm-title tm-footer-content-box-title">Nulla tortor dolor</h3>
+                            <nav>
+                                <ul class="nav">
+                                    <li><a href="#" class="tm-footer-link">Tincidunt non faucibus</a></li>
+                                    <li><a href="#" class="tm-footer-link">Vestibulum tempor</a></li>
+                                    <li><a href="#" class="tm-footer-link">Fusce non turpis euismod</a></li>
+                                    <li><a href="#" class="tm-footer-link">Lorem ipsum dolor sit</a></li>
+                                    <li><a href="#" class="tm-footer-link">Nam in augue consectetur</a></li>
+                                    <li><a href="#" class="tm-footer-link">Text Link Color #CCCC66</a></li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                        
+                    </div>
+
+                    <!-- Add the extra clearfix for only the required viewport 
+                        http://stackoverflow.com/questions/24590222/bootstrap-3-grid-with-different-height-in-each-item-is-it-solvable-using-only
+                    -->
+                    <div class="clearfix hidden-lg-up"></div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+
+                        <div class="tm-footer-content-box">
+                        
+                            <h3 class="tm-gold-text tm-title tm-footer-content-box-title">Etiam mollis ornare</h3>
+                            <p class="tm-margin-b-30">Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p><hr class="tm-margin-b-30">
+                            <p class="tm-margin-b-30">Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p><hr class="tm-margin-b-30">
+                            <p class="tm-margin-b-30">Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p>
+                            <a href="#" class="tm-btn tm-btn-gray text-uppercase">Read More</a>
+
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+
+                        <div class="tm-footer-content-box">
+                        
+                            <h3 class="tm-gold-text tm-title tm-footer-content-box-title">Fusce non turpis</h3>
+                            <div class="tm-margin-b-30">
+                                <img src="img/tm-img-100x100-1.jpg" alt="Image" class="tm-footer-thumbnail">
+                                <img src="img/tm-img-100x100-2.jpg" alt="Image" class="tm-footer-thumbnail">
+                                <img src="img/tm-img-100x100-3.jpg" alt="Image" class="tm-footer-thumbnail">
+                                <img src="img/tm-img-100x100-4.jpg" alt="Image" class="tm-footer-thumbnail">
+                                <img src="img/tm-img-100x100-5.jpg" alt="Image" class="tm-footer-thumbnail">
+                                <img src="img/tm-img-100x100-6.jpg" alt="Image" class="tm-footer-thumbnail">
+                            </div>
+                            <p class="tm-margin-b-20">Curabitur dui massa, aliquam quis mi sed, tempor vulputate tellus. Sed vestibulum non neque.</p>
+                            <a href="#" class="tm-btn tm-btn-gray text-uppercase">Browse</a>
+
+                        </div>
+                        
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 tm-copyright-col">
+                        <p class="tm-copyright-text">Copyright 2016 Your Company Name</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- load JS files -->
+        <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="twogroup/assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="{% static 'twogroup/dist/js/bootstrap.min.js' %}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="{% static 'twogroup/assets/js/vendor/holder.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{% static 'twogroup/assets/js/ie10-viewport-bug-workaround.js' %}"></script> 
+        <script>     
+       
+            /* Google map
+            ------------------------------------------------*/
+            var map = '';
+            var center;
+
+            function initialize() {
+                var mapOptions = {
+                    zoom: 16,
+                    center: new google.maps.LatLng(13.758468,100.567481),
+                    scrollwheel: false
+                };
+            
+                map = new google.maps.Map(document.getElementById('google-map'),  mapOptions);
+
+                google.maps.event.addDomListener(map, 'idle', function() {
+                  calculateCenter();
+                });
+            
+                google.maps.event.addDomListener(window, 'resize', function() {
+                  map.setCenter(center);
+                });
+            }
+
+            function calculateCenter() {
+                center = map.getCenter();
+            }
+
+            function loadGoogleMap(){
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' + 'callback=initialize';
+                document.body.appendChild(script);
+            }
+        
+            // DOM is ready
+            $(function() {
+
+                // Google Map
+                loadGoogleMap();
+            });
+
+        </script>             
+
+</body>
+</html>
